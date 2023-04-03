@@ -1,4 +1,4 @@
-lst = [1, 2, "qwerty", "asd", "zxc", 4, 6]
+lst = [1, 2, "qwerty", "asd", "zxc", 4, 6, 7]
 
 
 filtered_list = list(filter(lambda x: x == int, lst))
