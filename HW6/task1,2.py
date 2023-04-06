@@ -7,7 +7,7 @@ def set_equal_numbers():
 def set_unique_numbers():
     set1 = {1, 2, 3, 4, 5, 8}
     set2 = {1, 3, 6, 7, 4, 10}
-    return print(set1.difference(set2))
+    return print(set1.symmetric_difference(set2))
 
 
 set_equal_numbers()
