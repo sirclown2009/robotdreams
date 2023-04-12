@@ -6,23 +6,18 @@ def add_contact():
     global name_lastname
     global pnumber
     while True:
-        try:
-            name_lastname = input("Name: ")
-            pnumber = int(input("Phone number: +380"))
-        except ValueError:
-            print("Please use only digits")
-            # how to make the program go back to the beginning of the while loop?
-            if name_lastname in contacts:
-                print("You already have this contact saved")
-            elif len(pnumber) == 9:
-                print(f"{name_lastname} contact is saved")
-            elif len(pnumber) < 9 > len(pnumber):
-                print("Your number should be 9 digits long")
-                pnumber = input("Phone number: +380")
-                print(f"{name_lastname} contact is saved")
-            contacts[name_lastname] = pnumber
-        finally:
-            menu()
+        name_lastname = input("Name: ")
+        pnumber = input("Phone number: +380")
+        if name_lastname in contacts:
+            print("You already have this contact saved")
+        elif len(pnumber) == 9:
+            print(f"{name_lastname} contact is saved")
+        elif len(pnumber) < 9 > len(pnumber):
+            print("Your number should be 9 digits long")
+            pnumber = input("Phone number: +380")
+            print(f"{name_lastname} contact is saved")
+        contacts[name_lastname] = pnumber
+        menu()
 
 
 def delete_contact():
@@ -51,31 +46,9 @@ def stats():
 
 
 def find_contact():
-    while True:
-        gui = int(input("Find by name (1) or Find by number (2): "))
-        try:
-            if gui == 1:
-                name = input("Name: ")
-                # if name in name_lastname:
-                #     print(f"{contacts[name]}")
-                try:
-                    name_found = contacts[name]
-                except KeyError:
-                    print(f"Contact {name} does not exist")
-                else:
-                    print(name_found)
-                    menu()
-            if gui == 2:
-                number = input("Number: ")
-                try:
-                    number_found = contacts[name]
-                except KeyError:
-                    print(f"Contact with the number {number} does not exist")
-                else:
-                    print(number_found)
-        finally:
-            print("Type in a valid number")
-            menu()
+    name = input("Name: ")
+    if name in name_lastname:
+        print(f"{contacts[name]}")
 
 
 def menu():
