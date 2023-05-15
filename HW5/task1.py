@@ -1,5 +1,6 @@
 import json
 import time
+import re
 # to store names and phone numbers (paired)
 contacts = {}
 function_call_data = {}
@@ -19,7 +20,6 @@ def funcname_time(func):
             json.dump(function_call_data, f)
         with open("function_time.json", "r") as read_f:
             json.load(read_f)
-        # I can't use f.write here because the argument type is not a str, how to save it then?
     return wraper
 
 
@@ -29,25 +29,39 @@ def create_contact():
     global pnumber
     while True:
         name = input("Enter the name: ")
-        pnumber = input("Enter the phone number: +380")
+        pnumber = input("Enter the phone number: ")
+        valid_number = re.match(r"((\+?380\d{9}$)|0\d{9}$)", pnumber)
+        print(valid_number)
         contact_data = {"Name": name, "Phone number": pnumber}
-        contacts[name] = contact_data
-        with open("contacts.json", "w") as f:
-            json.dump(contacts, f)
+        if valid_number:
+            contacts[name] = contact_data
+            with open("contacts.json", "w") as f:
+                json.dump(contacts, f)
         @funcname_time
         def show_time():
             return None
 
         show_time()
+        # if name in contact_data:
+        #     print("You already have this contact saved")
+        #     menu()
+        # elif len(pnumber) == 9:
+        #     print(f"{name} contact is saved")
+        #     menu()
+        # elif len(pnumber) < 9 or len(pnumber) > 9:
+        #         print("Your number should be 9 digits long")
+        #         menu()
+
         if name in contact_data:
             print("You already have this contact saved")
             menu()
-        elif len(pnumber) == 9:
+        elif valid_number:
             print(f"{name} contact is saved")
             menu()
-        elif len(pnumber) < 9 or len(pnumber) > 9:
-                print("Your number should be 9 digits long")
+        elif not valid_number:
+                print("You should use Ukrainian phone code: +380/380/(0)")
                 menu()
+
 
 
 def delete_contact():
